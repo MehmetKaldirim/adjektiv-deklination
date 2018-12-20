@@ -41,13 +41,13 @@ public class ReadDatabase {
 
     }
 
-
+/*
     public ArrayList<String> maskulinNouns () throws IOException {
        // read maskulin nouns from file
         // iot creat hw and answer questions
         WriteDatabase wr= new WriteDatabase();
 
-        ArrayList words=readFromFile(wr.maskulinAdr);
+
         return words;
     }
 
@@ -106,7 +106,7 @@ public class ReadDatabase {
        ArrayList<String> propositionAll= union(akkusativ(),dativ());
        return  union(propositionAll,genetiv());
     }
-
+*/
     public static ArrayList<String> union(
             ArrayList<String> values1,
             ArrayList<String> values2) {
