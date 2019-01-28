@@ -1,9 +1,6 @@
 package Person;
 
 
-import Adjektiv.Deklination.Homework;
-import Adjektiv.Deklination.WriteDatabase;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -12,30 +9,25 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
  *
  * @author
  */
-public class SendEmail  {
-Homework hw= new Homework();
-WriteDatabase wr=new WriteDatabase();
+public class MailBox {
 
-    String filename =wr.homeworkAdr ; //dizin şeklinde
+    String fromEmail;
+    String password;
 
-    public SendEmail() throws IOException {
-
-
-    //String filename = "src/deneme/wordDokuman.doc";            //proje kaynak dosyası içindeki dizini
-
-
+    public MailBox (String fromEmail, String password){
+        this.fromEmail= fromEmail;
+        this.password=password;
     }
 
-    public void send(String student, String teacher) {
-        final String username = "adjektivdeklination@gmail.com";
-        final String password = "Adjektiv2018-"; //
+
+
+    public void send(String toEmail, String pathAdr,String yourGreeting) {
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -47,26 +39,25 @@ WriteDatabase wr=new WriteDatabase();
                 new javax.mail.Authenticator() {
 
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(fromEmail, password);
                     }
                 });
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(teacher));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(student));
-            message.setSubject("Your new Homework :");
+            message.setFrom(new InternetAddress(fromEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+            message.setSubject("Homework ");
             MimeBodyPart messageBodyPart = new MimeBodyPart();
 
-            //Mesaj İçerik
-
-            messageBodyPart.setText("Hello");
+            //yourGreeting
+            messageBodyPart.setText(yourGreeting);
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
 
-            //Ek Dosya
+            //attachment
             messageBodyPart = new MimeBodyPart();
-            DataSource source = new FileDataSource(filename);
+            DataSource source = new FileDataSource(pathAdr);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(source.getName());
             multipart.addBodyPart(messageBodyPart);
@@ -74,10 +65,13 @@ WriteDatabase wr=new WriteDatabase();
 
 
             Transport.send(message);
-
             System.out.println("e-mail sended");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-    }}
+    }
+
+    public void receiveMail(){}
+
+}

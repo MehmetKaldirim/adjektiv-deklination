@@ -9,27 +9,32 @@ import java.util.ArrayList;
 public class WriteDatabase {
 
 
-
     /**creat a relativ path adress for files
      *C:\Users\m\IdeaProjects\adjektiv deklination\DER (relativ path adress)
      */
-    String maskulinAdr =new File("DER.TXT").getAbsolutePath();
-    String femininAdr = new File("DIE.TXT").getAbsolutePath();
-    String neutralAdr = new File("DAS.TXT").getAbsolutePath();
-    String adjektivAdr = new File("ADJ.TXT").getAbsolutePath();
-    String akkusativAdr = new File("AKK.TXT").getAbsolutePath();
-    String dativAdr = new File("DAT.TXT").getAbsolutePath();
-    String genetivAdr = new File("GEN.TXT").getAbsolutePath();
-    public String homeworkAdr = new File("HOMEWORK.TXT").getAbsolutePath();
-    String checkHomeworkAdr = new File("CHECKHOMEWORK.TXT").getAbsolutePath();
+    String maskulinAdr =getRelativPathAdr("DER.txt");
+    String femininAdr = getRelativPathAdr("DIE.txt");
+    String neutralAdr = getRelativPathAdr("DAS.txt");
+    String adjektivAdr = getRelativPathAdr("ADJ.txt");
+    String akkusativAdr = getRelativPathAdr("AKK.txt");
+    String dativAdr = getRelativPathAdr("DAT.txt");
+    String genetivAdr = getRelativPathAdr("GEN.txt");
 
     public WriteDatabase()  {
 
     }
 
+    public String getRelativPathAdr(String pathName){
+        return new File(pathName).getAbsolutePath();
+    }
+
+
+
+
     /**Creat the files for a small database
      * @throws IOException
      */
+
     public void creatAllFiles() throws IOException {
 
         creatFile(maskulinAdr);
@@ -131,12 +136,12 @@ public class WriteDatabase {
     public void rewriteToFiles() throws IOException {
         ReadDatabase rd = new ReadDatabase();
 
-        writeNewLineToFile(maskulinAdr, rd.maskulinNouns());
-        writeNewLineToFile(femininAdr, rd.femininNouns());
-        writeNewLineToFile(neutralAdr, rd.neutralNouns());
-        writeNewLineToFile(adjektivAdr, rd.adjektiv());
-        writeNewLineToFile(akkusativAdr, rd.akkusativ());
-        writeNewLineToFile(dativAdr, rd.dativ());
-        writeNewLineToFile(genetivAdr, rd.genetiv());
+        writeNewLineToFile(maskulinAdr,rd.readFromFile(maskulinAdr));
+        writeNewLineToFile(femininAdr, rd.readFromFile(femininAdr));
+        writeNewLineToFile(neutralAdr, rd.readFromFile(neutralAdr));
+        writeNewLineToFile(adjektivAdr, rd.readFromFile(adjektivAdr));
+        writeNewLineToFile(akkusativAdr, rd.readFromFile(akkusativAdr));
+        writeNewLineToFile(dativAdr, rd.readFromFile(dativAdr));
+        writeNewLineToFile(genetivAdr, rd.readFromFile(genetivAdr));
     }
 }

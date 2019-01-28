@@ -1,4 +1,4 @@
-package Adjektiv.Deklination;
+package Homework;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,8 +9,8 @@ public class Homeworktest {
 
     @Test
     public void testSplit() throws IOException {
-        Homework hw = new Homework();
-        String first = hw.splitLineOfAnswers("Aaa-Bbb", 1, "-");
+        CheckAnswers ch = new CheckAnswers();
+        String first = ch.splitLineOfAnswers("Aaa-Bbb", 1, "-");
         Assert.assertEquals("Bbb",first) ;
 
     }
